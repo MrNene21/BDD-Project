@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 
         features = {"src/test/java/Features"},
         glue = {"StepDefinitions"},
-        tags = "@login"
+        tags = "@Login"
 )
 
 public class TestRunner {

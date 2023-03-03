@@ -1,3 +1,4 @@
+@Login
 Feature: Login
   A feature to test a login to a application
 

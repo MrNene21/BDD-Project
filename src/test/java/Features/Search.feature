@@ -1,3 +1,4 @@
+@Search
 Feature: Search
   A feature to book search for a hotel
 

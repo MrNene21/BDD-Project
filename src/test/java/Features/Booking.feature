@@ -1,3 +1,4 @@
+@Booking
 Feature: Booking
   A feature to book successfully
 
