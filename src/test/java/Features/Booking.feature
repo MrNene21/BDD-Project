@@ -21,5 +21,17 @@ Feature: Booking
         | checkInDate | checkOutDate | firstName | lastName | billingAddress | creditCardNo | CVVNumber |
         |   01/03/2023  |   03/03/2023   | Luyanda | Nene | Cape Town | 1234567890123456 | 123 |
 
+  Scenario Outline: Booking unsuccessful
+    Given a has logged in
+    When a user fillsSearchHotelForm "<checkInDate>" , "<checkOutDate>"
+    And a user clicksSearch
+    And a user clicksContinue after selecting hotel
+    And a user fillsInBookingPage "<firstName>", "<lastName>", "<billingAddress>", "<creditCardNo>", "<CVVNumber>"
+    And a user clicksBookNowButton
+    Then a user will have booked successfully
+    Examples:
+      | checkInDate | checkOutDate | firstName | lastName | billingAddress | creditCardNo | CVVNumber |
+      |   01/03/2023  |   03/03/2023   | Luyanda | Nene | Cape Town | 1234 | 123 |
+
 
 
