@@ -18,17 +18,19 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.concurrent.TimeUnit;
 
-public class BookingStepDefinitions extends Declarations{
+public class BookingStepDefinitions extends Declarations {
 
     ExtentReports extent;
     ExtentTest test;
+
     @Given("a has logged in")
     public void a_has_logged_in() throws InterruptedException {
-        ExtentSparkReporter spark = new ExtentSparkReporter("C:\\Users\\Luyanda.Nene\\Intellij Projects\\BDD_Exercise1\\Reports\\reports.html");
+        ExtentSparkReporter spark = new ExtentSparkReporter("C:\\Users\\Luyanda.Nene\\Intellij Projects\\BDD_Exercise1\\Reports\\bookingReport.html");
         extent = new ExtentReports();
         extent.attachReporter(spark);
         test = extent.createTest("Booking");
     }
+
     @When("a user fillsSearchHotelForm {string} , {string}")
     public void a_user_fills_search_hotel_form(String sCheckInDate, String sCheckOutDate) {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -65,27 +67,29 @@ public class BookingStepDefinitions extends Declarations{
         Select dropdown6 = new Select(staticDropDown6);
         dropdown6.selectByIndex(2);
     }
+
     @When("a user clicksSearch")
     public void a_user_clicks_search() {
         getDriver().findElement(By.id("Submit")).click();
     }
+
     @When("a user clicksContinue after selecting hotel")
     public void a_user_clicks_continue_after_selecting_hotel() {
         getDriver().findElement(By.id("radiobutton_0")).click();
         getDriver().findElement(By.id("continue")).click();
     }
+
     @When("a user fillsInBookingPage {string}, {string}, {string}, {string}, {string}")
     public void a_user_fills_in_booking_page(String sFirstName, String sLastName, String sBillingAddress, String sCreditCardNo, String sCVVNumber) {
         getDriver().findElement(By.id("first_name")).sendKeys(sFirstName);
         getDriver().findElement(By.id("last_name")).sendKeys(sLastName);
         getDriver().findElement(By.id("address")).sendKeys(sBillingAddress);
         getDriver().findElement(By.id("cc_num")).sendKeys(sCreditCardNo);
-        if(sCreditCardNo.length() != 16){
+        if (sCreditCardNo.length() != 16) {
             test.fail("Credit card number is invalid (is not 16 digits)");
             test.assignDevice("Dell, Intel® Core™ i7");
             test.assignAuthor("Luyanda Nene");
-        }
-        else{
+        } else {
             test.pass("Credit card number is valid (is 16 digits)");
             test.assignDevice("Dell, Intel® Core™ i7");
             test.assignAuthor("Luyanda Nene");
@@ -109,26 +113,39 @@ public class BookingStepDefinitions extends Declarations{
         //Enter CVV number
         getDriver().findElement(By.id("cc_cvv")).sendKeys(sCVVNumber);
     }
+
     @When("a user clicksBookNowButton")
     public void a_user_clicks_book_now_button() throws InterruptedException {
         getDriver().findElement(By.id("book_now")).click();
         Thread.sleep(5000);
     }
+
     @Then("a user will have booked successfully")
     public void a_user_will_have_booked_successfully() {
         WebElement orderNum = getDriver().findElement(By.id("order_no"));
-        if(!orderNum.isDisplayed()){
+        if (!orderNum.isDisplayed()) {
             test.assignDevice("Dell, Intel® Core™ i7");
             test.assignAuthor("Luyanda Nene");
             test.fail("Booking unsuccessful");
             Assert.fail();
-        }
-        else {
+        } else {
             test.assignDevice("Dell, Intel® Core™ i7");
             test.assignAuthor("Luyanda Nene");
             test.pass("Booking successful");
         }
+        driver.close();
         extent.flush();
     }
 
+    @Then("a user will have booked unsuccessfully")
+    public void aUserWillHaveBookedUnsuccessfully() {
+        if (!driver.findElement(By.id("cc_num_span")).isDisplayed()) {
+            test.fail("Booking unsuccessful");
+            Assert.fail();
+        } else {
+            test.pass("Booking successful");
+        }
+        driver.close();
+        extent.flush();
+    }
 }

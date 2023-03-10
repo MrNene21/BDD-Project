@@ -26,7 +26,7 @@ public class LoginStepdefs extends Declarations{
         getDriver().manage().window().maximize();
 
         //report
-        ExtentSparkReporter spark = new ExtentSparkReporter("C:\\Users\\Luyanda.Nene\\Intellij Projects\\BDD_Exercise1\\Reports\\reports.html");
+        ExtentSparkReporter spark = new ExtentSparkReporter("C:\\Users\\Luyanda.Nene\\Intellij Projects\\BDD_Exercise1\\Reports\\loginReport.html");
         extent = new ExtentReports();
         extent.attachReporter(spark);
         test = extent.createTest("Login");

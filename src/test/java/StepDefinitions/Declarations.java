@@ -11,7 +11,7 @@ public class Declarations {
         return driver;
     }
     public void setDriver(WebDriver objDriver){
-        this.driver = objDriver;
+        driver = objDriver;
     }
     public WebDriver initWebDriver(){
         WebDriverManager.chromiumdriver().setup();
