@@ -21,7 +21,7 @@ public class SearchStepDefs extends Declarations{
         ExtentSparkReporter spark = new ExtentSparkReporter("C:\\Users\\Luyanda.Nene\\Intellij Projects\\BDD_Exercise1\\Reports\\SearchReport.html");
         extent = new ExtentReports();
         extent.attachReporter(spark);
-        test = extent.createTest("Login");
+        test = extent.createTest("Search");
 
         driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
         orderNum = getDriver().findElement(By.id("order_no")).getAttribute("value");
@@ -44,6 +44,16 @@ public class SearchStepDefs extends Declarations{
         WebElement result = getDriver().findElement(By.id("search_result_error"));
         if (!result.isDisplayed()){
             Assert.fail();
+            test.assignDevice("Dell, Intel® Core™ i7");
+            test.assignAuthor("Luyanda Nene");
+            test.fail("Search unsuccessfuil").addScreenCaptureFromPath("screenshot.png");;
         }
+        else{
+            test.assignDevice("Dell, Intel® Core™ i7");
+            test.assignAuthor("Luyanda Nene");
+            test.pass("Search successful - Booked hotel was found in the itinerary list.");
+        }
+        driver.close();
+        extent.flush();
     }
 }
