@@ -28,7 +28,7 @@ public class BookingStepDefinitions extends Declarations {
         ExtentSparkReporter spark = new ExtentSparkReporter("C:\\Users\\Luyanda.Nene\\Intellij Projects\\BDD_Exercise1\\Reports\\bookingReport.html");
         extent = new ExtentReports();
         extent.attachReporter(spark);
-        test = extent.createTest("Booking");
+        test = extent.createTest("Booking scenario");
     }
 
     @When("a user fillsSearchHotelForm {string} , {string}")
@@ -126,12 +126,12 @@ public class BookingStepDefinitions extends Declarations {
         if (!orderNum.isDisplayed()) {
             test.assignDevice("Dell, Intel® Core™ i7");
             test.assignAuthor("Luyanda Nene");
-            test.fail("Booking unsuccessful");
+            test.fail("Booking unsuccessful (order number not present)");
             Assert.fail();
         } else {
             test.assignDevice("Dell, Intel® Core™ i7");
             test.assignAuthor("Luyanda Nene");
-            test.pass("Booking successful");
+            test.pass("Booking successful (order number present)");
         }
         driver.close();
         extent.flush();
@@ -140,10 +140,10 @@ public class BookingStepDefinitions extends Declarations {
     @Then("a user will have booked unsuccessfully")
     public void aUserWillHaveBookedUnsuccessfully() {
         if (!driver.findElement(By.id("cc_num_span")).isDisplayed()) {
-            test.fail("Booking unsuccessful");
+            test.fail("Booking unsuccessful (error message present)");
             Assert.fail();
         } else {
-            test.pass("Booking successful");
+            test.pass("Booking successful (error message not present)");
         }
         driver.close();
         extent.flush();

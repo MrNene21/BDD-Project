@@ -1,5 +1,8 @@
 package StepDefinitions;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
@@ -10,8 +13,16 @@ import java.util.concurrent.TimeUnit;
 
 public class SearchStepDefs extends Declarations{
     public String orderNum;
+    ExtentReports extent;
+    ExtentTest test;
     @And("user gets order number")
     public void userGetsOrderNumber() throws InterruptedException {
+        //report
+        ExtentSparkReporter spark = new ExtentSparkReporter("C:\\Users\\Luyanda.Nene\\Intellij Projects\\BDD_Exercise1\\Reports\\SearchReport.html");
+        extent = new ExtentReports();
+        extent.attachReporter(spark);
+        test = extent.createTest("Login");
+
         driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
         orderNum = getDriver().findElement(By.id("order_no")).getAttribute("value");
         System.out.println("Order number is: " + orderNum);
